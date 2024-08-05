@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="main w-full min-h-screen h-full text-white bg-zinc-900">
+        <div class="flex flex-wrap align-center justify-center pt-10 text-3xl font-bold">
+            Weather.Io
+        </div>
+        <div class="flex flex-wrap align-center justify-center pt-10 text-3xl font-bold">
+            Hello, <%= user.name %> 👋 Welcome to Weather.Io
+        </div>
+        <div class="form p-10 flex flex-wrap justify-center align-center">
+            <h1 class="text-center text-2xl font-bold mb-3">Enter City : </h1>
+            <form action="/weather" method="post">
+                <input class="block rounded-md px-5 py-2 ml-3 outline-none bg-zinc-800" type="text" name="city" id="city" placeholder="Enter City Name">
+                <button class="mt-5 rounded-md bg-blue-700 px-3 py-2" type="submit">Get Weather Details</button>
+            </form>
+        </div>
+        <div class="flex flex-wrap justify-center align-center pt-10 m-10">
+            <% if (error) { %>
+                <div>
+                    <p class="text-center text-2xl text-red-700 font-bold">Please Enter Correct City Name!</p>
+                </div>
+            <% } else if(weather) { %><%= console.log(weather) %>
+            <div class="w-64 mb-10 transition duration-500 ease-in-out transform rounded-lg hover:scale-105 cursor-pointer border b-gray-400 rounded flex flex-col justify-center items-center text-center p-6 bg-zinc-800">
+                <div class="text-md font-bold flex flex-col text-white"><span class="uppercase">Today</span> <span class="font-normal text-white text-sm"><%= weather.data.name %></span></div>
+                <div class="w-32 h-32 flex items-center justify-center">
+                    <img width="96" height="96" src="https://img.icons8.com/neon/96/cloud.png" alt="cloud"/>
+                </div>
+                <p class="text-white mb-2"></p>
+                <div class="text-3xl font-bold text-white mb-6"><%= (weather.data.main.temp / 10).toFixed(2) %> º </div>
+                <div class="text-l font-bold text-white mb-6">Minimum : <%= (weather.data.main.temp_min / 10).toFixed(2) %> º </div>
+                <div class="text-l font-bold text-white mb-6">Maximum : <%= (weather.data.main.temp_max / 10).toFixed(2) %> º </div>
+                <div class="text-l font-bold text-white mb-6">Humidity : <%= (weather.data.main.humidity / 10).toFixed(2) %> º </div>
+            </div>
+            <% } %>
+        </div>
+        <div class="flex flex-wrap justify-center align-center ">
+            <button class="mt-5 rounded-md bg-red-700 px-3 py-2"><a href="/api/v1/user/logout">Logout</a></button>
+        </div>
+    </div>
+</body>
+</html>
